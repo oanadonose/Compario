@@ -6,4 +6,5 @@
     <string name="register">REGISTER</string>
     <string name="ok">ok</string>
     <string name="cancel">cancel</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
