@@ -18,8 +18,6 @@ import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
     DBManager dbManager;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
             checkBoxRememberMe.setChecked(checkPref);
         }
 
-
 //Setting the link to direct you to register page
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     Cursor matchCur = dbManager.query(passwordProjection,passwordSelection,pselectionArgs,DBManager.ColEmail);
                     if(matchCur.getCount()>0){
                         Toast.makeText(getApplicationContext(),"Login succesful.",Toast.LENGTH_LONG).show();
+                        //save details if box is checked
                         if(checkBoxRememberMe.isChecked()){
                             editor.putString("pref_email",email);
                             editor.putString("pref_pass",password);
@@ -88,40 +86,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                     Toast.makeText(getApplicationContext(),"no email exists like that",Toast.LENGTH_LONG).show();
-
             }
-
-            ;
         });
-//       login.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               String email = emailLogin.getText().toString();
-//               String password = passwordLogin.getText().toString();
-//               if(email.equals("")||password.equals(""))
-//                   Toast.makeText(LoginActivity.this,"All fields are mandatory.",Toast.LENGTH_LONG).show();
-//               if(db.checkEmail(email)){
-//                   Toast.makeText(LoginActivity.this,"There is no account associated with this email.",Toast.LENGTH_SHORT).show();
-//               }
-//               else
-//               {
-//
-//               }
-//
-//           }
-//       });
-
-
         }
-            /* CHECK EMAIL
-                String[] projection = {"Email"};
-                String selection = "Email=?";
-                String[] selectionArgs = {email};
-                Cursor cursor = dbManager.query(projection,selection,selectionArgs,DBManager.ColEmail);
-                if(cursor.getCount()>0)
-                    Toast.makeText(getApplicationContext(),"Email already exists.",Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getApplicationContext(),"no email exists like that",Toast.LENGTH_LONG).show();
-            */
-    }
+}
 

@@ -8,11 +8,11 @@
     android:background="@drawable/bkg">
 
     <EditText
-        android:id="@+id/passwordR"
+        android:id="@+id/passwordRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/usernameR"
-        android:layout_below="@+id/usernameR"
+        android:layout_alignStart="@+id/usernameRegister"
+        android:layout_below="@+id/usernameRegister"
         android:ems="10"
         android:hint="@string/password"
         android:layout_centerHorizontal="true"
@@ -40,17 +40,17 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="213dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/passwordR"
-        android:layout_below="@+id/passwordR"
+        android:layout_alignStart="@+id/passwordRegister"
+        android:layout_below="@+id/passwordRegister"
         android:layout_centerInParent="true"
         android:text="Person/Company" />
 
     <EditText
-        android:id="@+id/emailR"
+        android:id="@+id/emailRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/usernameR"
-        android:layout_alignStart="@+id/passwordR"
+        android:layout_above="@+id/usernameRegister"
+        android:layout_alignStart="@+id/passwordRegister"
         android:layout_centerHorizontal="true"
 
         android:layout_marginStart="0dp"
@@ -60,7 +60,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/usernameR"
+        android:id="@+id/usernameRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
