@@ -77,8 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                             editor.apply();
                         }
                         //Change activity
-                        /*Intent appIntent = new Intent(LoginActivity.this, UserAreaActivity.class);
-                        LoginActivity.this.startActivity(appIntent);*/
+                        Intent appIntent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                        LoginActivity.this.startActivity(appIntent);
                     }
                     else if(matchCur.getCount()==0){
                         Toast.makeText(getApplicationContext(),"Please try again. Password does not match.",Toast.LENGTH_LONG).show();
