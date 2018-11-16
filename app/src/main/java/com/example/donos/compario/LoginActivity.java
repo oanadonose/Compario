@@ -1,6 +1,7 @@
 package com.example.donos.compario;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,17 +19,33 @@ import org.w3c.dom.Text;
 public class LoginActivity extends AppCompatActivity {
     DBManager dbManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         final DBManager dbManager = new DBManager(this);
-
-        final EditText emaill = (EditText) findViewById(R.id.emailL);
-        final EditText passwordd = (EditText) findViewById(R.id.passwordL);
+        final SharedPreferences mSettings = this.getSharedPreferences("Settings", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mSettings.edit();
+        final EditText emailLogin = (EditText) findViewById(R.id.emailLogin);
+        final EditText passwordLogin = (EditText) findViewById(R.id.passwordL);
         final Button login = (Button) findViewById(R.id.loginBtn);
         final TextView registerLink = (TextView) findViewById(R.id.registerHere);
+        final CheckBox checkBoxRememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
+
+        /*Checking if there is a user saved*/
+        if(mSettings.contains("pref_email")){
+            String emailPref = mSettings.getString("pref_email","not found");
+            emailLogin.setText(emailPref);
+        }
+        if(mSettings.contains("pref_pass")){
+            String passPref = mSettings.getString("pref_pass","not found");
+            passwordLogin.setText(passPref);
+        }
+        if (mSettings.contains("pref_check")) {
+            Boolean checkPref = mSettings.getBoolean("pref_check",false);
+            checkBoxRememberMe.setChecked(checkPref);
+        }
 
 
 //Setting the link to direct you to register page
@@ -41,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = emaill.getText().toString();
-                final String password = passwordd.getText().toString();
+                final String email = emailLogin.getText().toString();
+                final String password = passwordLogin.getText().toString();
                 String[] emailProjection = {"Email"};
                 String emailSelection = "Email=?";
                 String[] eselectionArgs = {email};
@@ -54,6 +72,12 @@ public class LoginActivity extends AppCompatActivity {
                     Cursor matchCur = dbManager.query(passwordProjection,passwordSelection,pselectionArgs,DBManager.ColEmail);
                     if(matchCur.getCount()>0){
                         Toast.makeText(getApplicationContext(),"Login succesful.",Toast.LENGTH_LONG).show();
+                        if(checkBoxRememberMe.isChecked()){
+                            editor.putString("pref_email",email);
+                            editor.putString("pref_pass",password);
+                            editor.putBoolean("pref_check",checkBoxRememberMe.isChecked());
+                            editor.apply();
+                        }
                         //Change activity
                         /*Intent appIntent = new Intent(LoginActivity.this, UserAreaActivity.class);
                         LoginActivity.this.startActivity(appIntent);*/
@@ -72,8 +96,8 @@ public class LoginActivity extends AppCompatActivity {
 //       login.setOnClickListener(new View.OnClickListener() {
 //           @Override
 //           public void onClick(View v) {
-//               String email = emaill.getText().toString();
-//               String password = passwordd.getText().toString();
+//               String email = emailLogin.getText().toString();
+//               String password = passwordLogin.getText().toString();
 //               if(email.equals("")||password.equals(""))
 //                   Toast.makeText(LoginActivity.this,"All fields are mandatory.",Toast.LENGTH_LONG).show();
 //               if(db.checkEmail(email)){

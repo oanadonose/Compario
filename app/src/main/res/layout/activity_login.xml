@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/emailL"
+        android:id="@+id/emailLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
         android:id="@+id/passwordL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/emailL"
+        android:layout_alignStart="@+id/emailLogin"
         android:layout_alignParentTop="true"
         android:layout_marginStart="1dp"
         android:layout_marginTop="193dp"
@@ -41,9 +41,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="253dp"
-        android:layout_marginEnd="146dp"
-        android:layout_marginRight="146dp"
+        android:layout_marginTop="303dp"
+        android:layout_marginEnd="154dp"
+        android:layout_marginRight="154dp"
         android:text="LOGIN" />
 
     <TextView
@@ -53,9 +53,18 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="121dp"
-        android:layout_marginLeft="121dp"
-        android:layout_marginBottom="239dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginBottom="188dp"
         android:text="@string/not_yet_registered" />
+
+    <CheckBox
+        android:id="@+id/checkBoxRememberMe"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/emailLogin"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="251dp"
+        android:text="Remember Me" />
 
 </RelativeLayout>
