@@ -14,6 +14,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -60,9 +62,18 @@ public class UserAreaActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
 
+        //Create the map
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //must calculate the shops array from db and initialize
+        String[] shopArray = {"Morrisons","B&Q","Lidl","Londis","Tesco","ASDA","Waterstones","Debenhams"};
+        //Create list adapter
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview,R.id.shopName, shopArray);
+        //Create the list
+        ListView shopList = (ListView) findViewById(R.id.shopslist);
+        shopList.setAdapter(adapter);
     }
 
     @Override
@@ -84,7 +95,7 @@ public class UserAreaActivity extends AppCompatActivity
             //centers on user location
             CameraPosition userLocation = new CameraPosition.Builder()
                     .target(new LatLng(userLatitude, userLongitude))
-                    .zoom(15)
+                    .zoom(13)
                     .build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(userLocation));
         }

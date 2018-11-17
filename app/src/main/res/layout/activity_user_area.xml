@@ -10,6 +10,32 @@
         class="com.google.android.gms.maps.SupportMapFragment"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="280dp" />
+
+    <ListView
+        android:id="@+id/shopslist"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_below="@+id/map"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:dividerHeight="5dp" />
+
+    <TextView
+        android:id="@+id/nearbyShops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="5dp"
+        android:text="Nearby Shops" />
 
 </RelativeLayout>
