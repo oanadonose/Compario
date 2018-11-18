@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +23,16 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        //code to make status bar and navigation bar transparent
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            }
+        }
         final DBManager dbManager = new DBManager(this);
 
         final EditText emailRegister = (EditText) findViewById(R.id.emailRegister);
@@ -27,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText passwordRegister = (EditText) findViewById(R.id.passwordRegister);
         final Button register = (Button) findViewById(R.id.registerBtn);
         final Button typeBtn = (Button) findViewById(R.id.typeBtn);
-        Typeface typeface = getResources().getFont(R.font.bunaeropro);
+        Typeface typeface = getResources().getFont(R.font.worksans);
         emailRegister.setTypeface(typeface);
         usernameRegister.setTypeface(typeface);
         passwordRegister.setTypeface(typeface);

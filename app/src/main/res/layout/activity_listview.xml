@@ -17,7 +17,7 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/shopImage"
         android:layout_toRightOf="@+id/shopImage"
-        android:fontFamily="@font/bunaeropro"
+        android:fontFamily="@font/worksans"
         android:text="Shop Name"
         android:textSize="22dp"
         android:textStyle="bold" />
@@ -42,7 +42,7 @@
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="52dp"
-        android:fontFamily="@font/bunaeropro"
+        android:fontFamily="@font/worksans"
         android:text="Distance: 2.3 miles"
         android:textSize="16sp" />
 
@@ -56,7 +56,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="11dp"
         android:layout_marginRight="11dp"
-        android:fontFamily="@font/bunaeropro"
+        android:fontFamily="@font/worksans"
         android:text="Offers: 27 active"
         android:textSize="16sp" />
 
@@ -70,7 +70,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
-        android:fontFamily="@font/bunaeropro"
+        android:fontFamily="@font/worksans"
         android:text="Uploaded by: zfx and co."
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textSize="13sp" />

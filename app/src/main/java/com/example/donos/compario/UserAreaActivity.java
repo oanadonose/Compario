@@ -2,19 +2,26 @@ package com.example.donos.compario;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -56,13 +63,25 @@ public class UserAreaActivity extends AppCompatActivity
     final double defaultLatitude = Double.parseDouble(defaultLatitudeString);
     final String defaultLongitudeString = "-1.503459";
     final double defaultLongitude = Double.parseDouble(defaultLongitudeString);
+    private BottomNavigationView bottomNavigationView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
-
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //code to make status bar and navigation bar transparent
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window w = getWindow(); // in Activity's onCreate() for instance
+//            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            }
+//        }
         //Create the map
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -187,5 +206,35 @@ public class UserAreaActivity extends AppCompatActivity
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_feed: {
+                    Intent appIntent = new Intent(UserAreaActivity.this, UserAreaActivity.class);
+                    UserAreaActivity.this.startActivity(appIntent);
+                    return true;
+                }
+                case R.id.navigation_nearby: {
+                    Intent appIntent = new Intent(UserAreaActivity.this, UserAreaActivity.class);
+                    UserAreaActivity.this.startActivity(appIntent);
+                    return true;
+                }
+                case R.id.navigation_compare: {
+//                    Intent appIntent = new Intent(UserAreaActivity.this, CompareActivity.class);
+//                    UserAreaActivity.this.startActivity(appIntent);
+                    return true;
+                }
+                case R.id.navigation_profile: {
+//                    Intent appIntent = new Intent(UserAreaActivity.this, ProfileActivity.class);
+//                    UserAreaActivity.this.startActivity(appIntent);
+                    return true;
+            }
+            }
+            return false;
+        }
+    };
 }

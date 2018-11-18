@@ -1,42 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserAreaActivity">
-    <fragment
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="280dp" />
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:context=".UserAreaActivity">
 
-    <ListView
-        android:id="@+id/shopslist"
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="280dp" />
+
+        <ListView
+            android:id="@+id/shopslist"
+            android:layout_width="match_parent"
+            android:layout_height="203dp"
+            android:layout_below="@+id/map"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="57dp"
+            android:dividerHeight="5dp" />
+
+        <TextView
+            android:id="@+id/nearbyShops"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/map"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="153dp"
+            android:layout_marginTop="5dp"
+            android:text="Nearby Shops"
+            android:textColor="@color/colorAccent" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:layout_below="@+id/map"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
-        android:dividerHeight="5dp" />
-
-    <TextView
-        android:id="@+id/nearbyShops"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/map"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="5dp"
-        android:text="Nearby Shops"
-        android:textColor="@color/colorAccent" />
+        android:layout_gravity="bottom"
+        android:background="@color/pink"
+        android:foreground="?attr/selectableItemBackground"
+        app:itemBackground="@color/pink"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navigation" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

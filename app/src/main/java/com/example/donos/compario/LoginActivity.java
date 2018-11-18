@@ -7,9 +7,13 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -22,8 +26,19 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //code to make status bar and navigation bar transparent
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            }
+        }
         final DBManager dbManager = new DBManager(this);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", MODE_PRIVATE);
         final SharedPreferences.Editor editor = mSettings.edit();
@@ -32,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button login = (Button) findViewById(R.id.loginBtn);
         final TextView registerLink = (TextView) findViewById(R.id.registerHere);
         final CheckBox checkBoxRememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
-        Typeface typeface = getResources().getFont(R.font.bunaeropro);
+        Typeface typeface = getResources().getFont(R.font.worksans);
         registerLink.setTypeface(typeface);
         emailLogin.setTypeface(typeface);
         passwordLogin.setTypeface(typeface);
@@ -86,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         //Change activity
-                        Intent appIntent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                        Intent appIntent = new Intent(LoginActivity.this,UserAreaActivity.class);
                         LoginActivity.this.startActivity(appIntent);
                     } else if (matchCur.getCount() == 0) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Please try again. Password does not match.", Toast.LENGTH_LONG);
