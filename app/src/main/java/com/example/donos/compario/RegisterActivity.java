@@ -3,6 +3,7 @@ package com.example.donos.compario;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,12 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText passwordRegister = (EditText) findViewById(R.id.passwordRegister);
         final Button register = (Button) findViewById(R.id.registerBtn);
         final Button typeBtn = (Button) findViewById(R.id.typeBtn);
+        Typeface typeface = getResources().getFont(R.font.bunaeropro);
+        emailRegister.setTypeface(typeface);
+        usernameRegister.setTypeface(typeface);
+        passwordRegister.setTypeface(typeface);
+        register.setTypeface(typeface);
+        typeBtn.setTypeface(typeface);
         String typeOfUser = "";
         final String[] typeArray = {"Company", "Person"};
 

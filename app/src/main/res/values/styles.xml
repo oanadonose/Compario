@@ -1,11 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:fontFamily">@font/bunaeropro</item>
+    </style>
+    <style name="LoginButton" parent="AppTheme">
+        <item name="colorControlHighlight">@color/purple</item>
+        <item name="colorButtonNormal">@color/pink</item>
+    </style>
+    <!--Input field style-->
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/pink</item>
+        <item name="colorControlActivated">@color/purple</item>
+    </style>
+    Floating label text style
+    <style name="MyHintText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/pink</item>
     </style>
 
 </resources>

@@ -11,12 +11,13 @@
         android:id="@+id/shopName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="122dp"
-        android:layout_marginLeft="122dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/shopImage"
+        android:layout_toRightOf="@+id/shopImage"
+        android:fontFamily="@font/bunaeropro"
         android:text="Shop Name"
         android:textSize="22dp"
         android:textStyle="bold" />
@@ -29,7 +30,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
-        app:srcCompat="@drawable/storelogo" />
+        app:srcCompat="@drawable/storeimage" />
 
     <TextView
         android:id="@+id/shopDistance"
@@ -38,29 +39,39 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="122dp"
-        android:layout_marginLeft="122dp"
-        android:layout_marginTop="42dp"
-        android:text="Distance: 2.3 miles" />
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="52dp"
+        android:fontFamily="@font/bunaeropro"
+        android:text="Distance: 2.3 miles"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/shopOffers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/shopDistance"
-        android:layout_alignEnd="@+id/shopCompany"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="-10dp"
-        android:text="Offers: 27 active" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:fontFamily="@font/bunaeropro"
+        android:text="Offers: 27 active"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/shopCompany"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/shopDistance"
-        android:layout_alignStart="@+id/shopDistance"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:fontFamily="@font/bunaeropro"
         android:text="Uploaded by: zfx and co."
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="13sp" />
 </RelativeLayout>
