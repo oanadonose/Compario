@@ -32,6 +32,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class UserAreaActivity extends AppCompatActivity
@@ -219,8 +220,10 @@ public class UserAreaActivity extends AppCompatActivity
                     return true;
                 }
                 case R.id.navigation_nearby: {
-                    Intent appIntent = new Intent(UserAreaActivity.this, UserAreaActivity.class);
+                    FirebaseAuth.getInstance().signOut();
+                    Intent appIntent = new Intent(UserAreaActivity.this, LoginActivity.class);
                     UserAreaActivity.this.startActivity(appIntent);
+                    finish();
                     return true;
                 }
                 case R.id.navigation_compare: {
@@ -229,8 +232,8 @@ public class UserAreaActivity extends AppCompatActivity
                     return true;
                 }
                 case R.id.navigation_profile: {
-//                    Intent appIntent = new Intent(UserAreaActivity.this, ProfileActivity.class);
-//                    UserAreaActivity.this.startActivity(appIntent);
+                    Intent appIntent = new Intent(UserAreaActivity.this, ProfileActivity.class);
+                    UserAreaActivity.this.startActivity(appIntent);
                     return true;
             }
             }

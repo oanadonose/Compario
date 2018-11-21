@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -42,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/emailLogin"
+            android:id="@+id/fieldEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -70,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailTextInputLayout">
 
         <EditText
-            android:id="@+id/passwordL"
+            android:id="@+id/fieldPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/passwordTextInputLayout"
@@ -84,17 +85,15 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/buttonSignIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
         android:gravity="center"
         android:text="LOGIN"
         android:textSize="24sp"
@@ -105,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/checkBoxRememberMe" />
 
     <TextView
-        android:id="@+id/registerHere"
+        android:id="@+id/registerLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -113,8 +112,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
         android:text="@string/not_yet_registered"
-        android:textSize="17sp"
         android:textColor="@color/blue"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -138,6 +137,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
+
+    <Button
+        android:id="@+id/buttonSignUp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/not_yet_registered"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn" />
     <!--android:layout_alignParentEnd="true"-->
     <!--android:layout_alignParentRight="true"-->
     <!--android:layout_alignParentBottom="true"-->

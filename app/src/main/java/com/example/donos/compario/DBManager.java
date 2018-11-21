@@ -62,6 +62,9 @@ Context context;
         Cursor cursor = qb.query(sqlDB,projection,Selection,SelectionArgs,null,null,SortOrder);
         return cursor;
     }
+    public void update(String tableName,ContentValues values,String where,String[] whereArgs){
+        sqlDB.update(tableName,values,where,whereArgs);
+    }
 
 
 //    public boolean checkEmail(String email){

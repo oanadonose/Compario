@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1085446843476",
+    "firebase_url": "https://compariomaps.firebaseio.com",
+    "project_id": "compariomaps",
+    "storage_bucket": "compariomaps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085446843476:android:fe73ab2fe1c45605",
+        "android_client_info": {
+          "package_name": "com.example.donos.compario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085446843476-etpsp9c97qirig2pa238h7h1ml5rlqnr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.donos.compario",
+            "certificate_hash": "3b57c4a7cf6476250d76aa3857a84d40408f7fa2"
+          }
+        },
+        {
+          "client_id": "1085446843476-d19eaq56euepi5omtf6adedth4kdc80j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDw5DHSdnUMCnosziLPS1Vl1Lvf92QNBw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085446843476-d19eaq56euepi5omtf6adedth4kdc80j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
