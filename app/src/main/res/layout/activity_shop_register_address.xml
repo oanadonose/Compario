@@ -5,25 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientbg"
-    tools:context=".ShopRegister2Activity">
+    tools:context=".ShopRegisterAddressActivity">
 
     <TextView
         android:id="@+id/shopRegTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="@font/worksans"
         android:text="SET UP YOUR SHOP"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/streetNoTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/streetTextInputLayout">
+
+        <EditText
+            android:id="@+id/shopStreetNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/worksans"
+            android:gravity="center"
+            android:hint="Street number"
+            android:inputType="textPostalAddress|numberDecimal"
+            android:textSize="24sp"
+            android:theme="@style/MyEditText" />
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/streetTextInputLayout"
@@ -33,14 +58,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         android:gravity="center"
         app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shopRegTitle2">
 
@@ -51,11 +73,12 @@
             android:ems="10"
             android:fontFamily="@font/worksans"
             android:gravity="center"
-            android:hint="Street(and number)"
+            android:hint="Street"
             android:inputType="textPostalAddress"
             android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/cityTextInputLayout"
         android:layout_width="match_parent"
@@ -64,16 +87,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         android:gravity="center"
         app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/streetTextInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/streetNoTextInputLayout">
 
         <EditText
             android:id="@+id/shopCity"
@@ -82,11 +103,12 @@
             android:ems="10"
             android:fontFamily="@font/worksans"
             android:gravity="center"
-            android:textSize="24sp"
             android:hint="City"
             android:inputType="textPersonName"
+            android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/countryTextInputLayout"
         android:layout_width="match_parent"
@@ -113,11 +135,12 @@
             android:ems="10"
             android:fontFamily="@font/worksans"
             android:gravity="center"
-            android:textSize="24sp"
             android:hint="Country"
             android:inputType="textPersonName"
+            android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/postcodeTextInputLayout"
         android:layout_width="match_parent"
@@ -144,11 +167,27 @@
             android:ems="10"
             android:fontFamily="@font/worksans"
             android:gravity="center"
-            android:textSize="24sp"
             android:hint="Postcode"
             android:inputType="textCapCharacters"
+            android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/finishButton"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/tickclear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postcodeTextInputLayout"
+        app:layout_constraintVertical_bias="0.26999998" />
 
 
 </android.support.constraint.ConstraintLayout>

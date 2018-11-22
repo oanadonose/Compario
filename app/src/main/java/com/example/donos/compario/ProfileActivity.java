@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import models.User;
 
 public class ProfileActivity extends BaseActivity {
-    private static final String TAG = "OanaOMG";
+    private static final String TAG = "ProfileActivity";
     DBManager dbManager;
     Context context;
     String nameCur, passwordCur;
@@ -39,28 +39,6 @@ public class ProfileActivity extends BaseActivity {
     // [END declare_database_ref]
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        Log.d(TAG,"start");
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        Log.d(TAG,"got current user");
-//        if (currentUser != null) {
-//            Log.d(TAG,"user is diff to null");
-//            Intent i = new Intent(this, LoginActivity.class);
-//            startActivity(i);
-//            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//                Log.d(TAG,"getting current userid");
-//                userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//            } else {
-//                Log.d(TAG,"start login activity");
-//                Intent appIntent = new Intent(this, LoginActivity.class);
-//                startActivity(appIntent);
-//            }
-//        }
-//    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +75,11 @@ public class ProfileActivity extends BaseActivity {
         }
 
         emailProfile = (EditText) findViewById(R.id.emailProfile);
-
-
         finishButton = (Button) findViewById(R.id.finishButton);
         addStoreButton = (Button) findViewById(R.id.plusImg);
+
         final String uid = userID;
+
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,61 +150,15 @@ public class ProfileActivity extends BaseActivity {
             }
         });
 
-
-//                Drawable d = getResources().getDrawable(R.drawable.tickfull);
-//                finishButton.setBackground(d);
-//                final String currentEmail = emailProfile.getText().toString();
-//                final String currentName = usernameProfile.getText().toString();
-//                final String currentPassword = passwordProfile.getText().toString();
-//
-//                //get values from records
-//                final String emailFromDb = mDatabase.child("users").child(userID).child("email").getKey();
-//                final String username = usernameFromEmail(currentEmail);
-//                //Create the alert dialog to confirm changes
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-//                // Add the buttons
-//                builder.setMessage("Do you want to save changes?")
-//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                //update the database
-//                                mDatabase.child("users").child(userID).child("email").setValue(currentEmail);
-//                                mDatabase.child("users").child(userID).child("username").setValue(usernameFromEmail(currentEmail));
-//                                updatePass(currentPassword);
-//                            }
-//                        })
-//                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // User cancelled the dialog
-//                                Drawable d = getResources().getDrawable(R.drawable.tickclear);
-//                                finishButton.setBackground(d);
-//                            }
-//                        })
-//                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogInterface dialog) {
-//                                // User cancelled the dialog
-//                                Drawable d = getResources().getDrawable(R.drawable.tickclear);
-//                                finishButton.setBackground(d);
-//                            }
-//                        });
-//                final AlertDialog dialog = builder.create();
-//                dialog.show();
-//                Intent appIntent = new Intent(ProfileActivity.this, UserAreaActivity.class);
-//                ProfileActivity.this.startActivity(appIntent);
-//            }
-//        });
-//
-//        addStoreButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent appIntent = new Intent(ProfileActivity.this, ShopRegister1Activity.class);
-//                ProfileActivity.this.startActivity(appIntent);
-//            }
-//        });
-//
-//
+        addStoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Drawable d = getResources().getDrawable(R.drawable.plusfull);
+                addStoreButton.setBackground(d);
+                Intent appIntent = new Intent(ProfileActivity.this, ShopRegister1Activity.class);
+                ProfileActivity.this.startActivity(appIntent);
+            }
+        });
     }
     private boolean validateForm() {
         boolean result = true;

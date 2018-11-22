@@ -7,7 +7,7 @@ public class Offer {
     public String category;
 
     public Offer() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Offer.class)
     }
 
     public Offer(String storename, String name, Integer price, String category) {

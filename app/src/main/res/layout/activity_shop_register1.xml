@@ -11,27 +11,24 @@
         android:id="@+id/imageView"
         android:layout_width="125dp"
         android:layout_height="98dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="125dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/storeminilogowhite"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shopRegTitle" />
 
     <TextView
         android:id="@+id/shopRegTitle"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="@font/worksans"
         android:text="SET UP YOUR SHOP"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,43 +60,43 @@
             android:fontFamily="@font/worksans"
             android:gravity="center"
             android:hint="Name"
-            android:textSize="24sp"
             android:inputType="textPersonName"
+            android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
 
 
     <android.support.design.widget.TextInputLayout
-    android:id="@+id/emailTextInputLayout"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_marginStart="30dp"
-    android:layout_marginLeft="30dp"
-    android:layout_marginTop="30dp"
-    android:layout_marginEnd="30dp"
-    android:layout_marginRight="30dp"
-    android:gravity="center"
-    app:hintTextAppearance="@style/MyHintText"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.464"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/nameTextInputLayout">
-
-    <EditText
-        android:id="@+id/shopEmail"
+        android:id="@+id/emailTextInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/worksans"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:gravity="center"
-        android:hint="Email"
-        android:textSize="24sp"
-        android:inputType="textEmailAddress"
-        android:theme="@style/MyEditText" />
-</android.support.design.widget.TextInputLayout>
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextInputLayout">
+
+        <EditText
+            android:id="@+id/shopEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/worksans"
+            android:gravity="center"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textSize="24sp"
+            android:theme="@style/MyEditText" />
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/phoneTextInputLayout"
@@ -127,21 +124,21 @@
             android:ems="10"
             android:fontFamily="@font/worksans"
             android:gravity="center"
-            android:textSize="24sp"
             android:hint="Phone(optional)"
             android:inputType="phone"
+            android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/nextBtn"
-        android:layout_width="96dp"
+        android:layout_width="88dp"
         android:layout_height="87dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="250dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/rightarrow"
         android:gravity="center"

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/your_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#4BAE4F"
-        android:orientation="vertical">
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradientbg"
-    tools:context=".LoginActivity"
-    android:theme="@style/AppTheme">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradientbg"
+            android:theme="@style/AppTheme"
+            tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/loginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/worksans"
+        android:text="LOGIN"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/emailTextInputLayout"
@@ -31,16 +32,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         android:gravity="center"
         app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/loginTitle">
 
         <EditText
             android:id="@+id/fieldEmail"
@@ -54,119 +53,88 @@
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/passwordTextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center"
-        app:hintTextAppearance="@style/MyHintText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextInputLayout">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/passwordTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                app:hintTextAppearance="@style/MyHintText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailTextInputLayout">
 
-        <EditText
-            android:id="@+id/fieldPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/passwordTextInputLayout"
-            android:layout_alignTop="@+id/passwordTextInputLayout"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textSize="24sp"
-            android:theme="@style/MyEditText" />
-    </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/fieldPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/passwordTextInputLayout"
+                    android:layout_alignTop="@+id/passwordTextInputLayout"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textSize="24sp"
+                    android:theme="@style/MyEditText" />
+            </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/buttonSignIn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/tickclear"
         android:gravity="center"
-        android:text="LOGIN"
         android:textSize="24sp"
         android:theme="@style/LoginButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxRememberMe" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignUp" />
 
-    <TextView
-        android:id="@+id/registerLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/not_yet_registered"
-        android:textColor="@color/blue"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
-
-    <CheckBox
-        android:id="@+id/checkBoxRememberMe"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_above="@+id/loginBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Remember Me"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
+            <CheckBox
+                android:id="@+id/checkBoxRememberMe"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_above="@+id/buttonSignUp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:text="Remember Me"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
 
     <Button
         android:id="@+id/buttonSignUp"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="30dp"
         android:text="@string/not_yet_registered"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn" />
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_marginEnd="32dp"-->
-    <!--android:layout_marginRight="32dp"-->
-    <!--android:layout_marginBottom="214dp"-->
-</android.support.constraint.ConstraintLayout>
-    </LinearLayout>
-
-<android.support.v7.widget.Toolbar
-android:id="@+id/toolbar"
-android:layout_width="match_parent"
-android:layout_height="?attr/actionBarSize"
-android:background="@android:color/transparent"
-app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-</android.support.v7.widget.Toolbar>
-
-    </RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxRememberMe" />
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginEnd="32dp"-->
+            <!--android:layout_marginRight="32dp"-->
+            <!--android:layout_marginBottom="214dp"-->
+        </android.support.constraint.ConstraintLayout>

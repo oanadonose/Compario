@@ -26,18 +26,7 @@ public class BaseActivity extends AppCompatActivity {
             mProgressDialog.dismiss();
         }
     }
-
-//    public String getUid() {
-//        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        } else {
-//            //login or register screen
-//            Intent appIntent = new Intent(BaseActivity.this, LoginActivity.class);
-//            BaseActivity.this.startActivity(appIntent);
-//            throw new Exception();
-//        }
-//        return uid;
-//    }
-
-
+    public String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
 }

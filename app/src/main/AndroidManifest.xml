@@ -29,9 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".UserAreaActivity"
             android:theme="@style/PinkStatusBar" />
 
@@ -46,14 +43,15 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ShopRegister1Activity"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".ShopRegister2Activity" />
+        <activity
+            android:name=".ShopRegister1Activity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ShopRegisterAddressActivity" />
         tools:replace="android:appComponentFactory"
-        <activity android:name=".ProfileActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ShopRegisterMapActivity"></activity>
     </application>
 
 </manifest>
