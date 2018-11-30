@@ -5,23 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,6 +32,16 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import models.User;
 
 
 public class UserAreaActivity extends AppCompatActivity
@@ -49,25 +57,62 @@ public class UserAreaActivity extends AppCompatActivity
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
-    /**
-     * Flag indicating whether a requested permission has been denied after returning in
-     * {@link #onRequestPermissionsResult(int, String[], int[])}.
-     */
-    private boolean mPermissionDenied = false;
-
-    private GoogleMap mMap;
-    public SharedPreferences locSettings;
-    public SharedPreferences.Editor editor;
-    private LatLng storeLocation;
-
     //the default location for the map center
     final String defaultLatitudeString = "52.407469";
     final double defaultLatitude = Double.parseDouble(defaultLatitudeString);
     final String defaultLongitudeString = "-1.503459";
     final double defaultLongitude = Double.parseDouble(defaultLongitudeString);
+    public SharedPreferences locSettings;
+    public SharedPreferences.Editor editor;
+    String uid;
+    String country;
+    String city;
+    User currentUser;
+    /**
+     * Flag indicating whether a requested permission has been denied after returning in
+     * {@link #onRequestPermissionsResult(int, String[], int[])}.
+     */
+    private boolean mPermissionDenied = false;
+    private String TAG = "customtag";
+    private FirebaseAuth mAuth;
+    private DatabaseReference userReference;
+    private DatabaseReference storeReference;
+    private GoogleMap mMap;
+    private LatLng storeLocation;
     private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_feed: {
+                    Intent appIntent = new Intent(UserAreaActivity.this, UserAreaActivity.class);
+                    UserAreaActivity.this.startActivity(appIntent);
+                    return true;
+                }
+                case R.id.navigation_nearby: {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent appIntent = new Intent(UserAreaActivity.this, LoginActivity.class);
+                    UserAreaActivity.this.startActivity(appIntent);
+                    finish();
+                    return true;
+                }
+                case R.id.navigation_compare: {
+//                    Intent appIntent = new Intent(UserAreaActivity.this, CompareActivity.class);
+//                    UserAreaActivity.this.startActivity(appIntent);
+                    return true;
+                }
+                case R.id.navigation_profile: {
+                    Intent appIntent = new Intent(UserAreaActivity.this, ProfileActivity.class);
+                    UserAreaActivity.this.startActivity(appIntent);
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +120,42 @@ public class UserAreaActivity extends AppCompatActivity
         setContentView(R.layout.activity_user_area);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        uid = user.getUid();
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent offerIntent = new Intent(UserAreaActivity.this,OfferRegisterActivity.class);
+                UserAreaActivity.this.startActivity(offerIntent);
+            }
+        });
+
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Title");
+//
+//// Set up the input
+//        final EditText input = new EditText(this);
+//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+//        input.setInputType(InputType.TYPE_CLASS_TEXT);
+//        builder.setView(input);
+//// Set up the buttons
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                city = input.getText().toString();
+//            }
+//        });
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.cancel();
+//            }
+//        });
+//
+//        builder.show();
         //code to make status bar and navigation bar transparent
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            Window w = getWindow(); // in Activity's onCreate() for instance
@@ -90,13 +171,110 @@ public class UserAreaActivity extends AppCompatActivity
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //must calculate the shops array from db and initialize
-        String[] shopArray = {"Morrisons","B&Q","Lidl","Londis","Tesco","ASDA","Waterstones","Debenhams"};
-        //Create list adapter
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview,R.id.shopName, shopArray);
-        //Create the list
-        ListView shopList = (ListView) findViewById(R.id.shopslist);
-        shopList.setAdapter(adapter);
+        final ArrayList<String> shops = new ArrayList<String>();
+
+        userReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Get user object
+                currentUser = dataSnapshot.getValue(User.class);
+                country = currentUser.country;
+                city = currentUser.city;
+                storeReference = FirebaseDatabase.getInstance().getReference().child("stores").child(country).child(city);
+                ValueEventListener storeListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                            Log.d(TAG, "" + childDataSnapshot.getKey()); //displays the key for the node
+                            Log.d(TAG, "" + childDataSnapshot.child("name").getValue());
+                            String latString = childDataSnapshot.child("address").child("latitude").getValue().toString();
+                            String longString = childDataSnapshot.child("address").child("longitude").getValue().toString();
+                            Double latitude = Double.parseDouble(latString);
+                            Double longitude = Double.parseDouble(longString);
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(latitude, longitude))
+                                    .title(childDataSnapshot.child("name").getValue().toString()));
+                            shops.add(childDataSnapshot.child("name").getValue().toString());//gives the value for given keyname
+                            //Create list adapter
+                            ArrayAdapter adapter = new ArrayAdapter<String>(UserAreaActivity.this, R.layout.activity_listview, R.id.shopName, shops);
+                            //Create the list
+                            ListView shopList = (ListView) findViewById(R.id.shopslist);
+                            shopList.setAdapter(adapter);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                        // [START_EXCLUDE]
+                        Toast.makeText(UserAreaActivity.this, "Failed to load post.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                };
+            storeReference.addValueEventListener(storeListener);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // [START_EXCLUDE]
+                Toast.makeText(UserAreaActivity.this, "Failed to load post.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
+        userReference.addValueEventListener(userListener);
+
+
+        //storeReference = FirebaseDatabase.getInstance().getReference().child("stores").child(country).child(city);
+
+
+        //DatabaseReference userReference = mFirebaseDatabase.getReference().child("users").child("FtyabGwkqCRwVcW8ySnJwEiPbVH3");
+
+
+        //if(country!= null)
+        //   Log.d(TAG, country);
+        //else
+        //   Log.d(TAG, "country is null?");
+        //if(city!=null)
+        //   Log.d(TAG, city);
+        //else
+        //  Log.d(TAG,"city is null?");
+//        DatabaseReference databaseReference = mFirebaseDatabase.getReference().child("stores").child(country).child(city);
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+//                    Log.d(TAG, "" + childDataSnapshot.getKey()); //displays the key for the node
+//                    Log.d(TAG, "" + childDataSnapshot.child("name").getValue());
+//                    shops.add(childDataSnapshot.child("name").getValue().toString());//gives the value for given keyname
+//                    //Create list adapter
+//                    ArrayAdapter adapter = new ArrayAdapter<String>(UserAreaActivity.this, R.layout.activity_listview, R.id.shopName, shops);
+//                    //Create the list
+//                    ListView shopList = (ListView) findViewById(R.id.shopslist);
+//                    shopList.setAdapter(adapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+
+
+//        Location locationA = new Location("point A");
+//
+//        locationA.setLatitude(latA);
+//        locationA.setLongitude(lngA);
+//
+//        Location locationB = new Location("point B");
+//
+//        locationB.setLatitude(latB);
+//        locationB.setLongitude(lngB);
+//
+//        float distance = locationA.distanceTo(locationB);
+
     }
 
     @Override
@@ -108,9 +286,9 @@ public class UserAreaActivity extends AppCompatActivity
 
         final SharedPreferences locSettings = this.getSharedPreferences("Settings", MODE_PRIVATE);
         final SharedPreferences.Editor editor = locSettings.edit();
-        if(locSettings.contains("last_lat") && locSettings.contains("last_long")){
-            String latitudeString = locSettings.getString("last_lat",defaultLatitudeString);
-            String longitudeString = locSettings.getString("last_long",defaultLongitudeString);
+        if (locSettings.contains("last_lat") && locSettings.contains("last_long")) {
+            String latitudeString = locSettings.getString("last_lat", defaultLatitudeString);
+            String longitudeString = locSettings.getString("last_long", defaultLongitudeString);
 
             double userLatitude = Double.parseDouble(latitudeString);
             double userLongitude = Double.parseDouble(longitudeString);
@@ -121,9 +299,8 @@ public class UserAreaActivity extends AppCompatActivity
                     .zoom(13)
                     .build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(userLocation));
-        }
-        else{
-            Toast.makeText(this,"Please click on *my location* button located in the top right corner.",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Please click on *my location* button located in the top right corner.", Toast.LENGTH_LONG).show();
         }
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -151,7 +328,6 @@ public class UserAreaActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
@@ -167,16 +343,16 @@ public class UserAreaActivity extends AppCompatActivity
         double longitude = location.getLongitude();
         String latitudeString = Double.toString(latitude);
         String longitudeString = Double.toString(longitude);
-        Toast.makeText(this, "lat " + latitudeString+",\n" + longitudeString, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "lat " + latitudeString + ",\n" + longitudeString, Toast.LENGTH_SHORT).show();
         //Adds user location to shared preferences for later use
         final SharedPreferences locSettings = this.getSharedPreferences("Settings", MODE_PRIVATE);
         final SharedPreferences.Editor editor = locSettings.edit();
-        editor.putString("last_lat",latitudeString);
-        Log.d("editor:","put last lat string into editor");
-        editor.putString("last_long",longitudeString);
-        Log.d("editor:","put last long string into editor");
+        editor.putString("last_lat", latitudeString);
+        Log.d("editor:", "put last lat string into editor");
+        editor.putString("last_long", longitudeString);
+        Log.d("editor:", "put last long string into editor");
         editor.apply();
-        Log.d("editor:","apply into editor");
+        Log.d("editor:", "apply into editor");
         return false;
     }
 
@@ -218,38 +394,6 @@ public class UserAreaActivity extends AppCompatActivity
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
-    }
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
-            switch (item.getItemId()) {
-                case R.id.navigation_feed: {
-                    Intent appIntent = new Intent(UserAreaActivity.this, UserAreaActivity.class);
-                    UserAreaActivity.this.startActivity(appIntent);
-                    return true;
-                }
-                case R.id.navigation_nearby: {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent appIntent = new Intent(UserAreaActivity.this, LoginActivity.class);
-                    UserAreaActivity.this.startActivity(appIntent);
-                    finish();
-                    return true;
-                }
-                case R.id.navigation_compare: {
-//                    Intent appIntent = new Intent(UserAreaActivity.this, CompareActivity.class);
-//                    UserAreaActivity.this.startActivity(appIntent);
-                    return true;
-                }
-                case R.id.navigation_profile: {
-                    Intent appIntent = new Intent(UserAreaActivity.this, ProfileActivity.class);
-                    UserAreaActivity.this.startActivity(appIntent);
-                    return true;
-            }
-            }
-            return false;
         }
-    };
+
 }

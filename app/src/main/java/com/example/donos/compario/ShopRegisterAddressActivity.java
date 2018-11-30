@@ -17,11 +17,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import models.Address;
 import models.Store;
 
 public class ShopRegisterAddressActivity extends AppCompatActivity {
-    private static final String TAG = "ShopRegisterAddressActivity";
+    private static final String TAG = "ShopAddressActivity";
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -100,17 +103,23 @@ public class ShopRegisterAddressActivity extends AppCompatActivity {
                     final String city = etCity.getText().toString();
                     final String country = etCountry.getText().toString();
                     final String postcode = etPostcode.getText().toString();
-                    Address address = new Address(street, streetNo, city, country, postcode, latitude, longitude);
-                    writeNewStore(email, phone, address);
+                    Address addressFull = new Address(street, streetNo, city, country, postcode, latitude, longitude);
+                    Address addressDB = new Address(street,streetNo,postcode,latitude,longitude);
+                    writeNewStore(name, email, phone, addressFull,addressDB);
                     Intent intent = new Intent(ShopRegisterAddressActivity.this, UserAreaActivity.class);
                     startActivity(intent);
                 }
             }
         });
     }//oncreate end
-    private void writeNewStore(String email, String phone, Address address) {
-        Store store = new Store(email, phone, address);
-        mDatabase.child("stores").child(userID).child(name).setValue(store);
+    private void writeNewStore(String name, String email, String phone, Address addressFull, Address addressDB) {
+        String key = mDatabase.child("stores").child(addressFull.country).child(addressFull.city).push().getKey();
+        Store store = new Store(name, email, phone,addressDB);
+        Map<String, Object> storeValues = store.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/stores/"+addressFull.country+"/"+addressFull.city+"/"+key,storeValues);
+        mDatabase.updateChildren(childUpdates);
+       //mDatabase.child("stores").child(addressFull.country).child(addressFull.city).setValue(store);
     }
     private boolean validateForm() {
         boolean result = true;

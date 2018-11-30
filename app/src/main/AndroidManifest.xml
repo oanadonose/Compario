@@ -51,7 +51,14 @@
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ShopRegisterMapActivity"></activity>
+        <activity android:name=".ShopRegisterMapActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".OfferRegisterActivity" />
+        <activity android:name=".OfferRegister2Activity"></activity>
     </application>
 
 </manifest>

@@ -155,8 +155,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                             // Write new user
                                             writeNewUser(currentUser.getUid(), username, currentUser.getEmail(),type);
 
-                                            // Go to User Area Activity
-                                            startActivity(new Intent(LoginActivity.this, UserAreaActivity.class));
+                                            // Go to Profile Activity to set city
+                                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
                                             finish();
                                         }
                                     })
@@ -168,7 +168,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                             Log.d(TAG, "chose company");
                                             // Write new user
                                             writeNewUser(currentUser.getUid(), username, currentUser.getEmail(),type);
-                                            Intent appIntent = new Intent(LoginActivity.this,ShopRegister1Activity.class);
+                                            Intent appIntent = new Intent(LoginActivity.this,ProfileActivity.class);
                                             LoginActivity.this.startActivity(appIntent);
                                             finish();
                                         }

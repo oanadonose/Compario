@@ -27,16 +27,20 @@ import models.User;
 
 public class ProfileActivity extends BaseActivity {
     private static final String TAG = "ProfileActivity";
-    DBManager dbManager;
+
     Context context;
-    String nameCur, passwordCur;
+
     private String userID;
     private EditText emailProfile;
+    private EditText countryProfile;
+    private EditText cityProfile;
     private Button finishButton;
     private Button addStoreButton;
+
     // [START declare_database_ref]
     private DatabaseReference mDatabase;
     // [END declare_database_ref]
+
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
@@ -50,6 +54,10 @@ public class ProfileActivity extends BaseActivity {
         // [END initialize_database_ref]
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+
+        cityProfile = findViewById(R.id.cityProfile);
+        countryProfile = findViewById(R.id.countryProfile);
+        emailProfile = findViewById(R.id.emailProfile);
         if (user != null) {
             Log.d(TAG, "user is diff to null");
         }
@@ -85,7 +93,8 @@ public class ProfileActivity extends BaseActivity {
             public void onClick(View v) {
                 Drawable d = getResources().getDrawable(R.drawable.tickfull);
                 finishButton.setBackground(d);
-                final String currentEmail = emailProfile.getText().toString();
+
+                //final String currentEmail = emailProfile.getText().toString();
                 FirebaseDatabase.getInstance().getReference().child("users").child(uid)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -94,53 +103,59 @@ public class ProfileActivity extends BaseActivity {
                                 User user = dataSnapshot.getValue(User.class);
                                 String usernameFromFirebase = user.username;
                                 String emailFromFirebase = user.email;
-                                if(!validateForm()) {
+                                String cityFromFirebase = user.city;
+                                String countryFromFirebase = user.country;
+                                validateForm();
+                                if (!validateForm()) {
                                     emailProfile.setText(emailFromFirebase);
-                                }
-                                else{
-                                if (emailFromFirebase.equals(currentEmail)) {
-                                    Intent appIntent = new Intent(ProfileActivity.this, UserAreaActivity.class);
-                                    startActivity(appIntent);
-                                }
+                                    cityProfile.setText(cityFromFirebase);
+                                    countryProfile.setText(countryFromFirebase);
+                                    return;
+                                } else if(validateForm()){
+                                        final String country = countryProfile.getText().toString();
+                                        final String city = cityProfile.getText().toString();
+                                        //Create the alert dialog to confirm changes
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                                        // Add the buttons
+                                        builder.setMessage("Do you want to save changes?")
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        String finishClickEmail = emailProfile.getText().toString();
+                                                        //update the database
+                                                        mDatabase.child("users").child(userID).child("email").setValue(finishClickEmail);
+                                                        mDatabase.child("users").child(userID).child("country").setValue(country);
+                                                        mDatabase.child("users").child(userID).child("city").setValue(city);
+                                                        Log.d(TAG, "changed email");
+                                                        mDatabase.child("users").child(userID).child("username").setValue(usernameFromEmail(finishClickEmail));
+                                                    }
+                                                })
+                                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        // User cancelled the dialog
+                                                        Drawable d = getResources().getDrawable(R.drawable.tickclear);
+                                                        finishButton.setBackground(d);
+                                                    }
+                                                })
+                                                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                    @Override
+                                                    public void onDismiss(DialogInterface dialog) {
+                                                        // User cancelled the dialog
+                                                        Drawable d = getResources().getDrawable(R.drawable.tickclear);
+                                                        finishButton.setBackground(d);
+                                                    }
+                                                });
+                                        final AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                        //Intent appIntent = new Intent(ProfileActivity.this, UserAreaActivity.class);
+                                        //ProfileActivity.this.startActivity(appIntent);
+                                        //updatePass(currentPassword);
+                                    }
                                     else{
-                                 //Create the alert dialog to confirm changes
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-                                    // Add the buttons
-                                    builder.setMessage("Do you want to save changes?")
-                                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    String finishClickEmail = emailProfile.getText().toString();
-                                                    //update the database
-                                                    mDatabase.child("users").child(userID).child("email").setValue(finishClickEmail);
-                                                    Log.d(TAG, "changed email");
-                                                    mDatabase.child("users").child(userID).child("username").setValue(usernameFromEmail(finishClickEmail));
-                                                }
-                                            })
-                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    // User cancelled the dialog
-                                                    Drawable d = getResources().getDrawable(R.drawable.tickclear);
-                                                    finishButton.setBackground(d);
-                                                }
-                                            })
-                                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                @Override
-                                                public void onDismiss(DialogInterface dialog) {
-                                                    // User cancelled the dialog
-                                                    Drawable d = getResources().getDrawable(R.drawable.tickclear);
-                                                    finishButton.setBackground(d);
-                                                }
-                                            });
-                                    final AlertDialog dialog = builder.create();
-                                    dialog.show();
-                                    //Intent appIntent = new Intent(ProfileActivity.this, UserAreaActivity.class);
-                                    //ProfileActivity.this.startActivity(appIntent);
-                                    //updatePass(currentPassword);
-                                }}
-                            }
-
+                                    Log.d(TAG,"went horribly wrong somehow.....");
+                                }
+                                }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
@@ -160,6 +175,7 @@ public class ProfileActivity extends BaseActivity {
             }
         });
     }
+
     private boolean validateForm() {
         boolean result = true;
         if (TextUtils.isEmpty(emailProfile.getText().toString())) {
@@ -167,6 +183,18 @@ public class ProfileActivity extends BaseActivity {
             result = false;
         } else {
             emailProfile.setError(null);
+        }
+        if (TextUtils.isEmpty(countryProfile.getText().toString())) {
+            countryProfile.setError("Required");
+            result = false;
+        } else {
+            countryProfile.setError(null);
+        }
+        if (TextUtils.isEmpty(cityProfile.getText().toString())) {
+            cityProfile.setError("Required");
+            result = false;
+        } else {
+            cityProfile.setError(null);
         }
         return result;
     }

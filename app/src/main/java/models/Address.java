@@ -24,4 +24,12 @@ public class Address {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+    public Address(String streetName, String streetNo, String postcode, Double latitude, Double longitude){
+        this.streetName = streetName;
+        this.streetNo = streetNo;
+        this.postcode = postcode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
 }

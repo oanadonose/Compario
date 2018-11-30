@@ -66,9 +66,6 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_listview, parent, false);
             viewHolder.shopName = (TextView) convertView.findViewById(R.id.shopName);
-            viewHolder.shopCompany = (TextView) convertView.findViewById(R.id.shopCompany);
-            viewHolder.shopDistance = (TextView) convertView.findViewById(R.id.shopDistance);
-            viewHolder.shopOffers = (TextView) convertView.findViewById(R.id.shopOffers);
             viewHolder.shopImage = (ImageView) convertView.findViewById(R.id.shopImage);
 
 

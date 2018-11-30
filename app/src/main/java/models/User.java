@@ -4,6 +4,8 @@ public class User {
     public String username;
     public String email;
     public String type;
+    public String country;
+    public String city;
     //public String password;
 
     public User() {

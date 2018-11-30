@@ -5,31 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientbg"
-    tools:context=".ProfileActivity">
+    tools:context=".ShopRegister1Activity">
 
     <ImageView
-        android:id="@+id/profileImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:id="@+id/imageView"
+        android:layout_width="125dp"
+        android:layout_height="98dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="100dp"
+        android:src="@drawable/round_local_offer_white_18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfile"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        app:srcCompat="@drawable/ic_person_white_24dp" />
+        app:layout_constraintTop_toBottomOf="@+id/offerTitle" />
 
     <TextView
-        android:id="@+id/editProfile"
+        android:id="@+id/offerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
         android:layout_marginTop="70dp"
-        android:layout_marginEnd="210dp"
         android:fontFamily="@font/worksans"
-        android:text="PROFILE"
+        android:text="ADD A NEW OFFER"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,68 +33,41 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/emailTextInputLayout"
+        android:id="@+id/shopTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_above="@+id/countryTextInputLayout"
+        android:layout_above="@+id/emailTextInputLayout"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="center"
-        app:hintTextAppearance="@style/MyHintText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImg">
-
-        <EditText
-            android:id="@+id/emailProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textSize="24sp"
-            android:theme="@style/MyEditText" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/countryTextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_above="@+id/cityTextInputLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:gravity="center"
-        android:textColorHint="@color/pink"
         app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <EditText
-            android:id="@+id/countryProfile"
+            android:id="@+id/shopOfferName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="@font/worksans"
             android:gravity="center"
-            android:hint="Country"
-            android:inputType="textEmailAddress"
+            android:hint="Store Name"
+            android:inputType="textPersonName"
             android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
 
+
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/cityTextInputLayout"
+        android:id="@+id/nameTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
@@ -109,61 +77,100 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:gravity="center"
-        android:textColorHint="@color/pink"
         app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryTextInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/shopTextInputLayout">
 
         <EditText
-            android:id="@+id/cityProfile"
+            android:id="@+id/offerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="@font/worksans"
             android:gravity="center"
-            android:hint="City"
-            android:inputType="textEmailAddress"
+            android:hint="Offer Title"
+            android:inputType="textCapCharacters"
             android:textSize="24sp"
             android:theme="@style/MyEditText" />
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:id="@+id/addShop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Add Store"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/priceTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        app:hintTextAppearance="@style/MyHintText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityTextInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/nameTextInputLayout">
+
+        <EditText
+            android:id="@+id/offerPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/worksans"
+            android:gravity="center"
+            android:hint="Price"
+            android:inputType="numberDecimal"
+            android:textSize="24sp"
+            android:theme="@style/MyEditText" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/categoryTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout">
+
+        <EditText
+            android:id="@+id/offerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/worksans"
+            android:gravity="center"
+            android:hint="Category"
+            android:inputType="text"
+            android:textSize="24sp"
+            android:theme="@style/MyEditText" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/plusImg"
-        android:layout_width="70dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/plus"
+        android:id="@+id/offerNextBtn"
+        android:layout_width="88dp"
+        android:layout_height="87dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/rightarrow"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addShop" />
-
-    <Button
-        android:id="@+id/finishButton"
-        android:layout_width="71dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="28dp"
-        android:background="@drawable/tickclear"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plusImg" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryTextInputLayout" />
 
 </android.support.constraint.ConstraintLayout>
