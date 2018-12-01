@@ -88,18 +88,26 @@ public class UserAreaActivity extends AppCompatActivity
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_feed: {
-                    Intent appIntent = new Intent(UserAreaActivity.this, UserAreaActivity.class);
-                    UserAreaActivity.this.startActivity(appIntent);
+                    //DONT DO ANYTHING THIS IS CURRENT ACTIVITY.
+                    //Intent appIntent = new Intent(UserAreaActivity.this, UserAreaActivity.class);
+                    //UserAreaActivity.this.startActivity(appIntent);
                     return true;
                 }
                 case R.id.navigation_nearby: {
+
+                    //FirebaseAuth.getInstance().signOut();
+                    Intent appIntent = new Intent(UserAreaActivity.this,OffersFeedActivity.class);
+                    UserAreaActivity.this.startActivity(appIntent);
+                    finish();
+                    return true;
+                   // finish();
+
+                }
+                case R.id.navigation_compare: {
                     FirebaseAuth.getInstance().signOut();
                     Intent appIntent = new Intent(UserAreaActivity.this, LoginActivity.class);
                     UserAreaActivity.this.startActivity(appIntent);
                     finish();
-                    return true;
-                }
-                case R.id.navigation_compare: {
 //                    Intent appIntent = new Intent(UserAreaActivity.this, CompareActivity.class);
 //                    UserAreaActivity.this.startActivity(appIntent);
                     return true;
@@ -107,6 +115,7 @@ public class UserAreaActivity extends AppCompatActivity
                 case R.id.navigation_profile: {
                     Intent appIntent = new Intent(UserAreaActivity.this, ProfileActivity.class);
                     UserAreaActivity.this.startActivity(appIntent);
+                    finish();
                     return true;
                 }
             }
@@ -118,11 +127,17 @@ public class UserAreaActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
+
+        //Navigation view
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //firebase authentication
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         uid = user.getUid();
+
+        //add store fab
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,39 +148,6 @@ public class UserAreaActivity extends AppCompatActivity
         });
 
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Title");
-//
-//// Set up the input
-//        final EditText input = new EditText(this);
-//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//        input.setInputType(InputType.TYPE_CLASS_TEXT);
-//        builder.setView(input);
-//// Set up the buttons
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                city = input.getText().toString();
-//            }
-//        });
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//            }
-//        });
-//
-//        builder.show();
-        //code to make status bar and navigation bar transparent
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            Window w = getWindow(); // in Activity's onCreate() for instance
-//            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-//                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            }
-//        }
         //Create the map
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -226,43 +208,7 @@ public class UserAreaActivity extends AppCompatActivity
         userReference.addValueEventListener(userListener);
 
 
-        //storeReference = FirebaseDatabase.getInstance().getReference().child("stores").child(country).child(city);
-
-
-        //DatabaseReference userReference = mFirebaseDatabase.getReference().child("users").child("FtyabGwkqCRwVcW8ySnJwEiPbVH3");
-
-
-        //if(country!= null)
-        //   Log.d(TAG, country);
-        //else
-        //   Log.d(TAG, "country is null?");
-        //if(city!=null)
-        //   Log.d(TAG, city);
-        //else
-        //  Log.d(TAG,"city is null?");
-//        DatabaseReference databaseReference = mFirebaseDatabase.getReference().child("stores").child(country).child(city);
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-//                    Log.d(TAG, "" + childDataSnapshot.getKey()); //displays the key for the node
-//                    Log.d(TAG, "" + childDataSnapshot.child("name").getValue());
-//                    shops.add(childDataSnapshot.child("name").getValue().toString());//gives the value for given keyname
-//                    //Create list adapter
-//                    ArrayAdapter adapter = new ArrayAdapter<String>(UserAreaActivity.this, R.layout.activity_listview, R.id.shopName, shops);
-//                    //Create the list
-//                    ListView shopList = (ListView) findViewById(R.id.shopslist);
-//                    shopList.setAdapter(adapter);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-
-
+        //Calculate distance between two points
 //        Location locationA = new Location("point A");
 //
 //        locationA.setLatitude(latA);
@@ -302,6 +248,7 @@ public class UserAreaActivity extends AppCompatActivity
         } else {
             Toast.makeText(this, "Please click on *my location* button located in the top right corner.", Toast.LENGTH_LONG).show();
         }
+        //TODO: FIGURE THIS OUT? //storelocation?
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {

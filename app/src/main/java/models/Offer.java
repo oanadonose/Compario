@@ -31,6 +31,18 @@ public class Offer {
         this.price = price;
         this.category = category;
     }
+    public String getStoreName(){
+        return storeName;
+    }
+    public String getOfferTitle(){
+        return offerTitle;
+    }
+    public String getPrice(){
+        return price;
+    }
+    public String getCategory(){
+        return category;
+    }
     // [START offer_to_map]
     @Exclude
     public Map<String, Object> toMap() {

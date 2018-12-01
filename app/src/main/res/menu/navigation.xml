@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/navigation_nearby"
-        android:icon="@drawable/ic_card_giftcard_white_24dp"
+        android:icon="@drawable/sharp_explore_white_18dp"
         android:title="@string/title_nearby" />
 
     <item

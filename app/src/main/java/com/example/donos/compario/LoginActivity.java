@@ -31,6 +31,9 @@ import models.User;
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "SignInActivity";
 
+    //shared preferences
+    public SharedPreferences userSettings;
+    public SharedPreferences.Editor editor;
 
     private EditText mEmailField;
     private EditText mPasswordField;
@@ -99,6 +102,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
+        final SharedPreferences userSettings = this.getSharedPreferences("Settings", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = userSettings.edit();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -107,6 +113,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         hideProgressDialog();
 
                         if (task.isSuccessful()) {
+                            final FirebaseUser currentUser = mAuth.getCurrentUser();
+                            final String userID = currentUser.getUid();
+                            editor.putString("uid",userID);
                             // Go to User Area Activity
                             startActivity(new Intent(LoginActivity.this, UserAreaActivity.class));
                             finish();

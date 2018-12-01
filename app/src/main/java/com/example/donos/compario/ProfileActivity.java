@@ -128,6 +128,8 @@ public class ProfileActivity extends BaseActivity {
                                                         mDatabase.child("users").child(userID).child("city").setValue(city);
                                                         Log.d(TAG, "changed email");
                                                         mDatabase.child("users").child(userID).child("username").setValue(usernameFromEmail(finishClickEmail));
+                                                        Intent appIntent = new Intent(ProfileActivity.this, UserAreaActivity.class);
+                                                        ProfileActivity.this.startActivity(appIntent);
                                                     }
                                                 })
                                                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -148,8 +150,7 @@ public class ProfileActivity extends BaseActivity {
                                                 });
                                         final AlertDialog dialog = builder.create();
                                         dialog.show();
-                                        //Intent appIntent = new Intent(ProfileActivity.this, UserAreaActivity.class);
-                                        //ProfileActivity.this.startActivity(appIntent);
+
                                         //updatePass(currentPassword);
                                     }
                                     else{

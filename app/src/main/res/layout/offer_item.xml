@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/root">
+
+    <TextView
+        android:id="@+id/offerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/offerImage"
+        android:layout_toRightOf="@+id/shopImage"
+        android:fontFamily="@font/worksans"
+        android:text="Offer Title"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/offerImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        app:srcCompat="@drawable/baseline_local_offer_black_18dp" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/offerTitle"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/offerImage"
+        android:text="Price"
+        android:textSize="19sp" />
+
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/offerTitle"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/price"
+        android:text="From" />
+
+    <TextView
+        android:id="@+id/storeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/offerTitle"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/from"
+        android:text="Store Name" />
+
+</RelativeLayout>

@@ -85,7 +85,7 @@ public class OfferRegister2Activity extends AppCompatActivity {
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/offers/"+offer.country+"/"+offer.city+"/"+key,offerValues);
         mDatabase.updateChildren(childUpdates);
-        //mDatabase.child("stores").child(addressFull.country).child(addressFull.city).setValue(store);
+
     }
     private boolean validateForm() {
         boolean result = true;
