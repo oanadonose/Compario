@@ -1,6 +1,7 @@
 package com.example.donos.compario;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -29,11 +30,13 @@ import models.User;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
+    private DBManager dbManager;
+
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private DatabaseReference userReference;
     private DatabaseReference offersReference;
-    private DatabaseReference searchReference;
+    private DatabaseReference shoppingListReference;
     private String uid;
 
     private User currentUser;
@@ -93,6 +96,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+
+        dbManager = new DBManager(this);
 
         //Navigation view
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -168,20 +173,54 @@ public class ShoppingListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Snackbar snackbar = Snackbar.make(view, "Removed item from list.",Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new MyUndoListener());
-                snackbar.show();
+                Offer selectedItem = (Offer) parent.getItemAtPosition(position);
+
+                String[] projection = {"OfferTitle","Store","Price","Category"};
+                final String selection = "OfferTitle=? AND Store=? AND Price=? AND Category=?";
+                String[] selectionArgs = {selectedItem.offerTitle, selectedItem.storeName, selectedItem.price, selectedItem.category};
+                Cursor cursor = dbManager.query(projection,selection,selectionArgs,DBManager.ColTitle);
+                if(cursor.getCount()>0)
+                {
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Removed "+selectedItem.offerTitle + " from shopping list.",
+                            Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    //update dbs
+
+                    //delete from sqlite local storage
+                    dbManager.delete(selection,selectionArgs);
+                    //delete from firebase
+                    deleteItem(selectedItem,uid);
+                }
             }
         }); //TODO:remove item from list on click or restore it.
         }//end on create
-    public class MyUndoListener implements View.OnClickListener{
+    private void deleteItem(final Offer selectedItem,String uid){
+        shoppingListReference = FirebaseDatabase.getInstance().getReference().child("shopping_list").child(uid);
+        ValueEventListener shopListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    String storeName = childDataSnapshot.child("store_name").getValue(String.class);
+                    String offerTitle = childDataSnapshot.child("offer_title").getValue(String.class);
+                    String category = childDataSnapshot.child("category").getValue(String.class);
+                    String price = childDataSnapshot.child("price").getValue(String.class);
 
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getApplicationContext(),"undoed",Toast.LENGTH_LONG).show();
+                    if(offerTitle!=null){
+                        if(offerTitle.equals(selectedItem.offerTitle)&&storeName.equals(selectedItem.storeName)&&category.equals(selectedItem.category)
+                                &&price.equals(selectedItem.price))
+                        {
+                            childDataSnapshot.getRef().removeValue();
+                        }
+                    }
+                }
+            }
 
-            // Code to undo the user's last action
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        shoppingListReference.addValueEventListener(shopListener);
     }
     }//end class
 
