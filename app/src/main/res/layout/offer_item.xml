@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/offerImage"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/offerTitle"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="12dp"
         android:layout_toEndOf="@+id/offerImage"
         android:text="Price"
@@ -62,5 +62,14 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/from"
         android:text="Store Name" />
+
+    <ImageView
+        android:id="@+id/starEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_alignBottom="@+id/offerTitle"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/sharp_star_border_black_18dp" />
 
 </RelativeLayout>

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordLay"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
+    android:label="@string/app_label"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserAreaActivity">
@@ -32,9 +39,29 @@
         <ListView
             android:id="@+id/offerList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
+            android:layout_height="658dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchText" />
+
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="367dp"
+            android:layout_height="38dp"
+            android:ems="10"
+            android:visibility = "gone"
+            android:hint="Search for products, categories, stores"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/searchEnter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:drawable/ic_menu_search"
+            app:layout_constraintBottom_toTopOf="@+id/offerList"
+            app:layout_constraintStart_toEndOf="@+id/searchText" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.BottomNavigationView
@@ -52,3 +79,4 @@
         app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

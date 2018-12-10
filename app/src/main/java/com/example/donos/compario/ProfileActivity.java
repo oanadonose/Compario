@@ -3,6 +3,7 @@ package com.example.donos.compario;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +44,11 @@ public class ProfileActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+    //shared pref
+    public SharedPreferences userSettings;
+    public SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +128,12 @@ public class ProfileActivity extends BaseActivity {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         String finishClickEmail = emailProfile.getText().toString();
+                                                        //add in shared preferences
+                                                        userSettings = getApplicationContext().getSharedPreferences("Settings", MODE_PRIVATE);
+                                                        editor = userSettings.edit();
+                                                        editor.putString("country",country);
+                                                        editor.putString("city",city);
+                                                        editor.apply();
                                                         //update the database
                                                         mDatabase.child("users").child(userID).child("email").setValue(finishClickEmail);
                                                         mDatabase.child("users").child(userID).child("country").setValue(country);

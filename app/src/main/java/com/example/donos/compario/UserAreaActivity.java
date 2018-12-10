@@ -104,8 +104,7 @@ public class UserAreaActivity extends AppCompatActivity
 
                 }
                 case R.id.navigation_compare: {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent appIntent = new Intent(UserAreaActivity.this, LoginActivity.class);
+                    Intent appIntent = new Intent(UserAreaActivity.this, ShoppingListActivity.class);
                     UserAreaActivity.this.startActivity(appIntent);
                     finish();
 //                    Intent appIntent = new Intent(UserAreaActivity.this, CompareActivity.class);

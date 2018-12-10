@@ -9,19 +9,19 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.widget.Toast;
 
 public class DBManager {
-    private SQLiteDatabase sqlDB;
+    public SQLiteDatabase sqlDB;
     Context context;
-    static final String DBName = "Logins";
-    static final String TableName = "user";
-    static final String ColEmail = "Email";
-    static final String ColUserName = "Name";
-    static final String ColPassword = "Password";
-    static final String ColType = "Type";
+    static final String DBName = "ShoppingList";
+    static final String TableName = "shopping_list";
+    static final String ColTitle = "OfferTitle";
+    static final String ColStore = "Store";
+    static final String ColPrice = "Price";
+    static final String ColCategory = "Category";
     static final int DBVersion = 1;
 
     static final String CreateTable = "CREATE TABLE IF NOT EXISTS " +TableName+
-            "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+ColEmail+
-            " TEXT,"+ ColUserName + " TEXT,"+ColPassword+ " TEXT,"+ColType+" TEXT);";
+            "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+ColTitle+
+            " TEXT,"+ ColStore + " TEXT,"+ColPrice+ " TEXT,"+ColCategory+" TEXT);";
 
     static class DatabaseHelperUser extends SQLiteOpenHelper{
 Context context;
@@ -64,6 +64,10 @@ Context context;
     }
     public void update(String tableName,ContentValues values,String where,String[] whereArgs){
         sqlDB.update(tableName,values,where,whereArgs);
+    }
+    public void delete(String whereClause, String[] whereArgs)
+    {
+        sqlDB.delete(DBManager.TableName,whereClause,whereArgs);
     }
 
 

@@ -59,7 +59,9 @@
 
         <activity android:name=".OfferRegisterActivity" />
         <activity android:name=".OfferRegister2Activity" />
-        <activity android:name=".OffersFeedActivity"
+        <activity
+            android:name=".OffersFeedActivity"
+            android:launchMode="singleTop"
             android:theme="@style/PinkStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -67,6 +69,9 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".ShoppingListActivity"
+            android:theme="@style/PinkStatusBar">
 
         </activity>
     </application>
