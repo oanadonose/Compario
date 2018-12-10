@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -278,34 +279,11 @@ public class OffersFeedActivity extends AppCompatActivity {
                     //delete from sqlite local storage
                     dbManager.delete(selection,selectionArgs);
                     //delete from firebase
-                    shoppingListReference = FirebaseDatabase.getInstance().getReference().child("shopping_list").child(uid);
-                    ValueEventListener shopListener = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                                String storeName = childDataSnapshot.child("store_name").getValue(String.class);
-                                String offerTitle = childDataSnapshot.child("offer_title").getValue(String.class);
-                                String category = childDataSnapshot.child("category").getValue(String.class);
-                                String price = childDataSnapshot.child("price").getValue(String.class);
-
-                                if(offerTitle.equals(selectedItem.offerTitle)&&storeName.equals(selectedItem.storeName)&&category.equals(selectedItem.category)
-                                        &&price.equals(selectedItem.price))
-                                {
-                                    childDataSnapshot.getRef().removeValue();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    };
-                    shoppingListReference.addValueEventListener(shopListener);
+                    deleteItem(selectedItem,uid);
                 }
-                else
+                else if(cursor.getCount()==0)
                 {
-                    //TODO:make snackbar undo
+                    //TODO: make snackbar undo
                     Snackbar.make(findViewById(R.id.coordLay),"Added "+selectedItem.offerTitle + " to shopping list.",Snackbar.LENGTH_SHORT).show();
                     shoppingList.add(selectedItem);
                     writeNewOffer(selectedItem,uid);
@@ -325,48 +303,35 @@ public class OffersFeedActivity extends AppCompatActivity {
             }
         });
 
-
-
     }//on create end
-    /*
-    private void handleSearch(String userCountry, String userCity) {
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            final String query = intent.getStringExtra(SearchManager.QUERY);
-            //doMySearch(query);
-            searchReference = FirebaseDatabase.getInstance().getReference().child("offers").child(userCountry).child(userCity);
-            ValueEventListener searchListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    ArrayList<Offer> searchlist = new ArrayList<>();
-                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                        String storeName = childDataSnapshot.child("store_name").getValue(String.class);
-                        String offerTitle = childDataSnapshot.child("offer_title").getValue(String.class);
-                        String category = childDataSnapshot.child("category").getValue(String.class);
-                        String price = childDataSnapshot.child("price").getValue(String.class);
-                        if (storeName.toLowerCase().contains(query.toLowerCase()) || offerTitle.toLowerCase().contains(query.toLowerCase()) || category.toLowerCase().contains(query.toLowerCase())) {
-                            Offer offer = new Offer(storeName, offerTitle, price, category);
-                            //add this to custom array adapter
-                            searchlist.add(offer);
-                            //create adapter
-                            OfferAdapter adapter = new OfferAdapter(OffersFeedActivity.this, searchlist);
-                            listView.setAdapter(adapter);
+    private void deleteItem(final Offer selectedItem,String uid){
+        shoppingListReference = FirebaseDatabase.getInstance().getReference().child("shopping_list").child(uid);
+        ValueEventListener shopListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    String storeName = childDataSnapshot.child("store_name").getValue(String.class);
+                    String offerTitle = childDataSnapshot.child("offer_title").getValue(String.class);
+                    String category = childDataSnapshot.child("category").getValue(String.class);
+                    String price = childDataSnapshot.child("price").getValue(String.class);
+
+                    if(offerTitle!=null){
+                        if(offerTitle.equals(selectedItem.offerTitle)&&storeName.equals(selectedItem.storeName)&&category.equals(selectedItem.category)
+                                &&price.equals(selectedItem.price))
+                        {
+                            childDataSnapshot.getRef().removeValue();
                         }
                     }
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            };
-            searchReference.addValueEventListener(searchListener);
-
-        }else if(Intent.ACTION_VIEW.equals(intent.getAction())) {
-            Toast.makeText(this, "els if//",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }*/
+            }
+        };
+        shoppingListReference.addValueEventListener(shopListener);
+    }
     private void writeNewOffer(Offer offer, String uid) {
         String key = mDatabase.child("shopping_list").child(uid).push().getKey();
         Offer offerObj = new Offer(offer.storeName,offer.offerTitle,offer.price,offer.category);
