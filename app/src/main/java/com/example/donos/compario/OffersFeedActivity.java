@@ -52,7 +52,6 @@ public class OffersFeedActivity extends AppCompatActivity {
 
     private ArrayList<Offer> shoppingList;
     //TODO: MAKE ACTIVITY EXTEND LISTVIEW? -- https://developer.android.com/guide/topics/search/search-dialog //performing a search
-//TODO: MAKE FAB FOR SHOPPING LIST HERE AND IN COMPARE TAB
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private DatabaseReference userReference;

@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class UserAreaActivity extends AppCompatActivity
      *
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
+    private ListView shopList;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     //the default location for the map center
     final String defaultLatitudeString = "52.407469";
@@ -154,6 +156,8 @@ public class UserAreaActivity extends AppCompatActivity
 
         final ArrayList<String> shops = new ArrayList<String>();
 
+        shopList = findViewById(R.id.shopslist);
+
         userReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
         ValueEventListener userListener = new ValueEventListener() {
             @Override
@@ -180,7 +184,7 @@ public class UserAreaActivity extends AppCompatActivity
                             //Create list adapter
                             ArrayAdapter adapter = new ArrayAdapter<String>(UserAreaActivity.this, R.layout.activity_listview, R.id.shopName, shops);
                             //Create the list
-                            ListView shopList = (ListView) findViewById(R.id.shopslist);
+
                             shopList.setAdapter(adapter);
                         }
                     }
@@ -205,6 +209,21 @@ public class UserAreaActivity extends AppCompatActivity
             }
         };
         userReference.addValueEventListener(userListener);
+
+        //onitemclick
+
+        shopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String shop_name = (String) parent.getItemAtPosition(position);
+                Intent shopIntent = new Intent(UserAreaActivity.this, ShopActivity.class);
+                shopIntent.putExtra("shop_name",shop_name);
+                shopIntent.putExtra("user_country",country);
+                shopIntent.putExtra("user_city",city);
+                UserAreaActivity.this.startActivity(shopIntent);
+            }
+        });
+
 
 
         //Calculate distance between two points
@@ -342,4 +361,4 @@ public class UserAreaActivity extends AppCompatActivity
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
         }
 
-}
+}//end class
